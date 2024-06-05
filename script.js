@@ -14,6 +14,7 @@ search.addEventListener('click', () => {
       const image = document.querySelector('.weather-box img');
       const temperature = document.querySelector('.weather-box .temperature');
       const description = document.querySelector('.weather-box .description');
+      const dateElement = document.querySelector('.weather-box .date'); // Get the date element
       const humidity = document.querySelector('.weather-box .humidity'); 
       const wind = document.querySelector('.weather-box .wind'); 
 
@@ -24,22 +25,23 @@ search.addEventListener('click', () => {
         case 'Rain':
           image.src = 'images/rain.png';
           break;
-
         case 'Snow':
-            image.src = 'images/snow.png';
-            break;
-            case 'Clouds':
-                image.src = 'images/cloud.png';
-                break;
-
-                case 'Haze':
-                case 'Mist':
-                    image.src = 'images/mist.png';
-                    break;
-          
-          default:
+          image.src = 'images/snow.png';
+          break;
+        case 'Clouds':
+          image.src = 'images/cloud.png';
+          break;
+        case 'Haze':
+        case 'Mist':
+          image.src = 'images/mist.png';
+          break;
+        default:
           image.src = 'images/cloud';
       }
+
+      const currentDate = new Date(); // Get the current date
+      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      dateElement.innerHTML = currentDate.toLocaleDateString(undefined, options); // Format the date
 
       temperature.innerHTML = `${json.main.temp} <span>°C</span>`; 
       description.innerHTML = `${json.weather[0].description}`;
