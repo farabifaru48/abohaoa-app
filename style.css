@@ -103,13 +103,16 @@ body {
     text-transform: capitalize;
 
 }
-.weather-details{
-    position: absolute;
-    bottom: 40px;
-    left: 0;
-    width: 100%;
-    padding: 0 20px;
-    display: flex;
+.weather-details {
+  position: absolute;
+  bottom: 40px;
+  left: 0;
+  width: 100%;
+  padding: 0 20px;
+  display: flex;
+}
+.date{
+ margin-top: -7px;
 }
 .weather-details .humidity,
 .weather-details .wind{
@@ -141,3 +144,4 @@ body {
     font-size: 14px;
     font-weight: 500;
 }
+

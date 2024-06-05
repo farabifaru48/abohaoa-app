@@ -1,55 +1,51 @@
-const container = document.querySelector('.container');
 const search = document.querySelector('.search-box button');
-const weatherBox = document.querySelector('.weather-box');
-const weatherDetails = document.querySelector('.weather-details');
+const temperature = document.querySelector('.weather-box .temperature');
+const description = document.querySelector('.weather-box .description');
+const dateElement = document.querySelector('.weather-box .date');
+const humidity = document.querySelector('.humidity .info-humidity span');
+const wind = document.querySelector('.wind .info-wind span');
 
 search.addEventListener('click', () => {
   const APIkey = 'c35c7c54e3a49c2e3b40739e2f9fd22d';
-  const city = document.querySelector('.search-box input').value;
-  if (city === '') return;
+  const location = document.querySelector('.search-box input').value;
+  if (location === '') return;
 
-  fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${APIkey}`)
+  fetch(`https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=${APIkey}`)
     .then(response => response.json())
     .then(json => {
-      const image = document.querySelector('.weather-box img');
-      const temperature = document.querySelector('.weather-box .temperature');
-      const description = document.querySelector('.weather-box .description');
-      const dateElement = document.querySelector('.weather-box .date'); // Get the date element
-      const humidity = document.querySelector('.weather-box .humidity'); 
-      const wind = document.querySelector('.weather-box .wind'); 
-
       switch (json.weather[0].main) {
         case 'Clear':
-          image.src = 'images/clear.png';
+          temperature.innerHTML = `${json.main.temp} <span>°C</span>`;
+          description.textContent = 'Clear';
           break;
         case 'Rain':
-          image.src = 'images/rain.png';
+          temperature.innerHTML = `${json.main.temp} <span>°C</span>`;
+          description.textContent = 'Rain';
           break;
         case 'Snow':
-          image.src = 'images/snow.png';
+          temperature.innerHTML = `${json.main.temp} <span>°C</span>`;
+          description.textContent = 'Snow';
           break;
         case 'Clouds':
-          image.src = 'images/cloud.png';
+          temperature.innerHTML = `${json.main.temp} <span>°C</span>`;
+          description.textContent = 'Cloudy';
           break;
         case 'Haze':
         case 'Mist':
-          image.src = 'images/mist.png';
+          temperature.innerHTML = `${json.main.temp} <span>°C</span>`;
+          description.textContent = 'Hazy';
           break;
         default:
-          image.src = 'images/cloud';
+          temperature.innerHTML = `${json.main.temp} <span>°C</span>`;
+          description.textContent = 'Weather Condition Unknown';
       }
 
-      const currentDate = new Date(); // Get the current date
+      const currentDate = new Date();
       const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-      dateElement.innerHTML = currentDate.toLocaleDateString(undefined, options); // Format the date
+      dateElement.textContent = currentDate.toLocaleDateString(undefined, options);
 
-      temperature.innerHTML = `${json.main.temp} <span>°C</span>`; 
-      description.innerHTML = `${json.weather[0].description}`;
-      humidity.innerHTML = `${json.main.humidity}%`;
-      wind.innerHTML = `${json.wind.speed} km/h`;
-
-      weatherBox.style.display = '';
-      weatherDetails.style.display = '';
+      humidity.textContent = `${json.main.humidity}%`;
+      wind.textContent = `${json.wind.speed} km/h`;
     })
     .catch(error => {
       console.error('Error fetching the weather data:', error);
